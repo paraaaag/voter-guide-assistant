@@ -11,9 +11,11 @@ const port = process.env.PORT || 3001;
 
 const GEMINI_SYSTEM_PROMPT = "You are a civic election assistant for Indian voters. The user is from {STATE_NAME}. Always reply in the exact same language the user wrote in. Keep answers under 4 sentences. Be factual, clear, and helpful. Do not make up election rules. If unsure, say so and direct the user to voters.eci.gov.in";
 
-// Enable CORS for frontend on port 5173
+// Enable CORS for frontend on port 5173 and production web.app
 app.use(cors({
-  origin: 'http://localhost:5173'
+  origin: ['https://promptwar-project.web.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
 }));
 
 // Parse JSON bodies
