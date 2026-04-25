@@ -1,4 +1,4 @@
-export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+export const API_URL = import.meta.env.VITE_API_URL || 'https://voter-guide-api-360693077440.us-central1.run.app';
 
 /**
  * Sends a user message to the Gemini API via the backend server.

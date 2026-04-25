@@ -1,5 +1,9 @@
 # VoteEasy: Election Assistant
 
+## Live Demo
+- **Frontend**: https://promptwar-project.web.app
+- **Backend API**: https://voter-guide-api-360693077440.us-central1.run.app
+
 ## Vertical
 Civic Tech / Voter Education
 
