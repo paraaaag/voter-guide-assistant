@@ -1,0 +1,211 @@
+{
+  "MH": {
+    "name": "Maharashtra",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "DL": {
+    "name": "Delhi",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "TN": {
+    "name": "Tamil Nadu",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "KA": {
+    "name": "Karnataka",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "UP": {
+    "name": "Uttar Pradesh",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "WB": {
+    "name": "West Bengal",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "GJ": {
+    "name": "Gujarat",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "RJ": {
+    "name": "Rajasthan",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "AP": {
+    "name": "Andhra Pradesh",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "MP": {
+    "name": "Madhya Pradesh",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  },
+  "BR": {
+    "name": "Bihar",
+    "documents": [
+      "EPIC (Voter ID Card)",
+      "Aadhaar Card",
+      "PAN Card",
+      "Driving License",
+      "Indian Passport",
+      "Bank/Post Office Passbook with Photograph",
+      "Smart Card issued by RGI under NPR",
+      "MNREGA Job Card",
+      "Health Insurance Smart Card (Ministry of Labour)",
+      "Pension Document with Photograph",
+      "Official Identity Card issued to MPs/MLAs/MLCs",
+      "Unique Disability ID (UDID) Card"
+    ],
+    "boothUrl": "https://voters.eci.gov.in",
+    "helpline": "1950"
+  }
+}

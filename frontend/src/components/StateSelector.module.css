@@ -1,0 +1,88 @@
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  padding: 32px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.title {
+  color: #1a2e4a;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.description {
+  color: #44474d;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1c1c;
+  margin-bottom: 8px;
+}
+
+.select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c4c6ce;
+  border-radius: 0.25rem;
+  font-family: inherit;
+  font-size: 16px;
+  color: #1a1c1c;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.select:focus {
+  border: 2px solid #1a2e4a;
+  padding: 11px; /* compensate for 2px border to prevent layout shift */
+}
+
+.primaryButton {
+  background-color: #1a2e4a;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background-color: #021934;
+}
+
+.primaryButton:disabled {
+  background-color: #c4c6ce;
+  cursor: not-allowed;
+}

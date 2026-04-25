@@ -1,0 +1,62 @@
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navBar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+}
+
+.navLogo {
+  color: #1a2e4a;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.navLinks {
+  display: flex;
+  height: 100%;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #1a2e4a;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  height: 100%;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: #f3f3f3;
+}
+
+.navButton:disabled {
+  color: #c4c6ce;
+  cursor: not-allowed;
+}
+
+.navButton.active {
+  font-weight: 700;
+  border-bottom: 3px solid #1a2e4a;
+}
+
+.mainContent {
+  flex: 1;
+  max-width: 1140px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 48px 24px;
+}
