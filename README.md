@@ -41,8 +41,9 @@ The assistant guides users through a structured civic workflow:
 4. **Actionable Outputs**: Alongside chat, the system renders a concrete document checklist and provides direct paths to the official ECI booth locator.
 
 ## Google Services Used
-- **Gemini API (gemini-1.5-flash)**
+- **Gemini API (gemini-2.5-flash)**
 - **Google Cloud Run**
+- **Firebase Hosting** (frontend deployment)
 - **Google Stitch**
 - **Google Antigravity**
 
