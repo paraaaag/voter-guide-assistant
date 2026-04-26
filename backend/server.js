@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' }); // Load .env from parent directory
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
@@ -53,7 +53,7 @@ app.post('/ask', async (request, response) => {
   try {
     const systemInstruction = GEMINI_SYSTEM_PROMPT.replace('{STATE_NAME}', stateData.name);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.5-flash",
       systemInstruction: systemInstruction
     });
 
