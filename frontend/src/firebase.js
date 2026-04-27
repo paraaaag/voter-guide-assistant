@@ -8,12 +8,13 @@ import { getPerformance } from 'firebase/performance';
 // API key is restricted to this domain only via Firebase Console
 // See: https://firebase.google.com/docs/projects/api-keys
 const firebaseConfig = {
-  apiKey: "AIzaSyD54I4UcIB8xQ8iX2dZL8URXjtWNSHfSyY",
+  apiKey: "AIzaSyAPtX1jR80VRWBg3_dTWmvE3yz7nTi5SzA",
   authDomain: "promptwar-project.firebaseapp.com",
   projectId: "promptwar-project",
-  storageBucket: "promptwar-project.appspot.com",
+  storageBucket: "promptwar-project.firebasestorage.app",
   messagingSenderId: "360693077440",
-  appId: "promptwar-project"
+  appId: "1:360693077440:web:3e6103980bb1d4c35c6425",
+  measurementId: "G-NZCBWMQTKY"
 };
 
 // Initialize Firebase app
