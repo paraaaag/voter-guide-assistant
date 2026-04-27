@@ -1,24 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './BoothFinder.module.css';
 import { fetchChecklist } from '../api';
+import { analytics, logEvent } from '../firebase';
 
+/**
+ * BoothFinder lets the user enter their Voter ID (EPIC) number and redirects
+ * them to the state-specific ECI booth locator page. Fires a `booth_finder_used`
+ * analytics event each time the form is successfully submitted.
+ *
+ * @param {BoothFinderProps} props
+ * @returns {JSX.Element}
+ */
 export default function BoothFinder({ selectedState }) {
   const [epicNumber, setEpicNumber] = useState('');
   const [boothUrl, setBoothUrl] = useState('https://voters.eci.gov.in');
-  
+
+  /** Load the state-specific ECI booth URL when the selected state changes. */
   useEffect(() => {
     if (selectedState) {
       fetchChecklist(selectedState)
         .then(response => setBoothUrl(response.boothUrl))
-        .catch(error => {
-          // Suppress error log or use try catch if needed, but fetchChecklist handles errors
+        .catch(() => {
+          // Keep the default ECI URL if the request fails
         });
     }
   }, [selectedState]);
 
+  /**
+   * Validates the EPIC number, logs the analytics event, and opens the
+   * ECI booth locator portal in a new tab.
+   *
+   * @param {React.FormEvent<HTMLFormElement>} event - The form submit event.
+   * @returns {void}
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     if (epicNumber.trim()) {
+      logEvent(analytics, 'booth_finder_used', { state: selectedState });
       window.open(boothUrl, '_blank');
     }
   };
@@ -51,8 +70,8 @@ export default function BoothFinder({ selectedState }) {
           />
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.primaryButton}
           disabled={!epicNumber.trim()}
           aria-label="Search polling booth"
@@ -67,3 +86,17 @@ export default function BoothFinder({ selectedState }) {
     </div>
   );
 }
+
+BoothFinder.propTypes = {
+  /** The two-letter ECI state code used to load the correct booth locator URL. */
+  selectedState: PropTypes.string
+};
+
+BoothFinder.defaultProps = {
+  selectedState: null
+};
+
+/**
+ * @typedef {Object} BoothFinderProps
+ * @property {string|null} selectedState - Active state code, or null before selection.
+ */

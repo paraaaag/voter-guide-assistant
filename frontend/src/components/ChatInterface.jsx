@@ -1,7 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './ChatInterface.module.css';
 import { askAssistant } from '../api';
+import { analytics, logEvent } from '../firebase';
 
+/**
+ * ChatInterface provides a real-time messaging UI that forwards user questions
+ * to the Gemini-backed `/ask` endpoint with the user's selected state as context.
+ * Supports voice input via the Web Speech API and fires a `question_asked`
+ * analytics event for every submission.
+ *
+ * @param {ChatInterfaceProps} props
+ * @returns {JSX.Element}
+ */
 export default function ChatInterface({ selectedState }) {
   const [messages, setMessages] = useState([
     { role: 'bot', text: 'Hello! I am your election assistant. How can I help you today?' }
@@ -11,14 +22,22 @@ export default function ChatInterface({ selectedState }) {
   const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef(null);
 
+  /** Smoothly scrolls the message list to the latest message. */
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
 
+  /**
+   * Handles form submission: validates input, logs the analytics event,
+   * calls the backend, and appends the bot reply to the message list.
+   *
+   * @param {React.FormEvent} [event] - The optional form submit event.
+   * @returns {Promise<void>}
+   */
   const handleSend = async (event) => {
     event?.preventDefault();
     if (!input.trim() || !selectedState || isLoading) return;
@@ -27,6 +46,7 @@ export default function ChatInterface({ selectedState }) {
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setInput('');
     setIsLoading(true);
+    logEvent(analytics, 'question_asked', { state: selectedState });
 
     try {
       const response = await askAssistant(userMsg, selectedState);
@@ -38,9 +58,15 @@ export default function ChatInterface({ selectedState }) {
     }
   };
 
+  /**
+   * Starts the Web Speech API recognition session and populates the text input
+   * with the transcribed result. Alerts the user if their browser lacks support.
+   *
+   * @returns {void}
+   */
   const handleMicClick = () => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert("Your browser does not support the Web Speech API.");
+      alert('Your browser does not support the Web Speech API.');
       return;
     }
 
@@ -49,22 +75,10 @@ export default function ChatInterface({ selectedState }) {
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.onstart = () => {
-      setIsListening(true);
-    };
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      setInput(transcript);
-    };
-
-    recognition.onerror = (event) => {
-      console.error("Speech recognition error", event.error);
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
+    recognition.onstart = () => { setIsListening(true); };
+    recognition.onresult = (event) => { setInput(event.results[0][0].transcript); };
+    recognition.onerror = (event) => { console.error('Speech recognition error', event.error); };
+    recognition.onend = () => { setIsListening(false); };
 
     recognition.start();
   };
@@ -103,8 +117,8 @@ export default function ChatInterface({ selectedState }) {
         </div>
 
         <form className={styles.inputArea} onSubmit={handleSend}>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className={`${styles.micButton} ${isListening ? styles.listening : ''}`}
             onClick={handleMicClick}
             title="Voice Input"
@@ -122,9 +136,9 @@ export default function ChatInterface({ selectedState }) {
             disabled={isLoading}
             aria-label="Type your message"
           />
-          <button 
-            type="submit" 
-            className={styles.sendButton} 
+          <button
+            type="submit"
+            className={styles.sendButton}
             disabled={!input.trim() || isLoading}
             aria-label="Send message"
           >
@@ -135,3 +149,17 @@ export default function ChatInterface({ selectedState }) {
     </div>
   );
 }
+
+ChatInterface.propTypes = {
+  /** The two-letter ECI state code chosen by the user (e.g. "MH"). */
+  selectedState: PropTypes.string
+};
+
+ChatInterface.defaultProps = {
+  selectedState: null
+};
+
+/**
+ * @typedef {Object} ChatInterfaceProps
+ * @property {string|null} selectedState - Active state code, or null before selection.
+ */

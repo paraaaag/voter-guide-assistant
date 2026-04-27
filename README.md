@@ -41,11 +41,13 @@ The assistant guides users through a structured civic workflow:
 4. **Actionable Outputs**: Alongside chat, the system renders a concrete document checklist and provides direct paths to the official ECI booth locator.
 
 ## Google Services Used
-- **Gemini API (gemini-2.5-flash)**
-- **Google Cloud Run**
-- **Firebase Hosting** (frontend deployment)
-- **Google Stitch**
-- **Google Antigravity**
+- **Gemini API (gemini-2.5-flash)** — Core AI engine (`@google/generative-ai`) for multilingual civic Q&A with state-specific context injection
+- **Google Cloud Run** — Serverless backend deployment with auto-scaling; Docker container hosted at `voter-guide-api-360693077440.us-central1.run.app`
+- **Firebase Hosting** — Frontend CDN deployment (`firebase-tools`) at `promptwar-project.web.app` with global edge caching
+- **Firebase Analytics** — User interaction tracking (`firebase/analytics`); logs `page_view`, `question_asked`, `checklist_viewed`, and `booth_finder_used` events from all four React components
+- **Google Fonts** — Google Sans & Public Sans typography loaded via `fonts.googleapis.com` for accessible, Google-native UI design
+- **Google Stitch** — UI design system and component generation for premium, WCAG-compliant interface tokens
+- **Google Antigravity** — Agentic full-stack development; accelerated Node.js/React architecture prototyping
 
 ## Assumptions
 - Users have basic internet access and a modern browser (required for the Web Speech API).
