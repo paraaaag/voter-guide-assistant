@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install only production dependencies for a lean image
-RUN npm ci --only=production
+RUN npm ci --only=production --legacy-peer-deps
 
 # Bundle app source
 COPY . .
