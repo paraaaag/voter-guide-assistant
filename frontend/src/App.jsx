@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
-import StateSelector from './components/StateSelector';
-import ChatInterface from './components/ChatInterface';
-import Checklist from './components/Checklist';
-import BoothFinder from './components/BoothFinder';
 import ErrorBoundary from './components/ErrorBoundary';
 import styles from './App.module.css';
+
+const StateSelector = lazy(() => import('./components/StateSelector'));
+const ChatInterface = lazy(() => import('./components/ChatInterface'));
+const Checklist = lazy(() => import('./components/Checklist'));
+const BoothFinder = lazy(() => import('./components/BoothFinder'));
 
 /**
  * Root application component for VoteEasy.
@@ -31,6 +32,7 @@ export default function App() {
 
   return (
     <div className={styles.appContainer}>
+      <a href="#main-content" className={styles.skipLink}>Skip to main content</a>
       <nav className={styles.navBar}>
         <div className={styles.navLogo}>VoteEasy</div>
         <div className={styles.navLinks}>
@@ -60,12 +62,14 @@ export default function App() {
         </div>
       </nav>
 
-      <main className={styles.mainContent}>
+      <main id="main-content" className={styles.mainContent}>
         <ErrorBoundary>
-          {currentPage === 'home' && <StateSelector onStateSelect={setSelectedState} navigateTo={navigateTo} />}
-          {currentPage === 'chat' && <ChatInterface selectedState={selectedState} />}
-          {currentPage === 'checklist' && <Checklist selectedState={selectedState} />}
-          {currentPage === 'booth' && <BoothFinder selectedState={selectedState} />}
+          <Suspense fallback={<div aria-live="polite">Loading...</div>}>
+            {currentPage === 'home' && <StateSelector onStateSelect={setSelectedState} navigateTo={navigateTo} />}
+            {currentPage === 'chat' && <ChatInterface selectedState={selectedState} />}
+            {currentPage === 'checklist' && <Checklist selectedState={selectedState} />}
+            {currentPage === 'booth' && <BoothFinder selectedState={selectedState} />}
+          </Suspense>
         </ErrorBoundary>
       </main>
     </div>

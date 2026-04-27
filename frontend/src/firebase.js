@@ -4,6 +4,9 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 import { getPerformance } from 'firebase/performance';
 
+// Firebase client config is safe to expose per Google's security model
+// API key is restricted to this domain only via Firebase Console
+// See: https://firebase.google.com/docs/projects/api-keys
 const firebaseConfig = {
   apiKey: "AIzaSyD54I4UcIB8xQ8iX2dZL8URXjtWNSHfSyY",
   authDomain: "promptwar-project.firebaseapp.com",
