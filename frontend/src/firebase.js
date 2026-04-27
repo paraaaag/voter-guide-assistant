@@ -1,7 +1,8 @@
 // Firebase initialization for VoteEasy
-// Provides Google Analytics tracking across all components
+// Provides Google Analytics and Firebase Performance Monitoring across all components.
 import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent } from 'firebase/analytics';
+import { getPerformance } from 'firebase/performance';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD54I4UcIB8xQ8iX2dZL8URXjtWNSHfSyY",
@@ -15,7 +16,12 @@ const firebaseConfig = {
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase Analytics
+// Initialize Firebase Analytics — tracks page_view, question_asked,
+// checklist_viewed, and booth_finder_used events across all components.
 const analytics = getAnalytics(app);
 
-export { analytics, logEvent };
+// Initialize Firebase Performance Monitoring — automatically captures
+// page load metrics and supports custom traces for AI response latency.
+const perf = getPerformance(app);
+
+export { analytics, logEvent, perf };

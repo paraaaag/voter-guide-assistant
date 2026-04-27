@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styles from './ChatInterface.module.css';
 import { askAssistant } from '../api';
-import { analytics, logEvent } from '../firebase';
+import { analytics, logEvent, perf } from '../firebase';
+import { trace } from 'firebase/performance';
 
 /**
  * ChatInterface provides a real-time messaging UI that forwards user questions
  * to the Gemini-backed `/ask` endpoint with the user's selected state as context.
- * Supports voice input via the Web Speech API and fires a `question_asked`
- * analytics event for every submission.
+ * Supports voice input via the Web Speech API, fires a `question_asked`
+ * analytics event for every submission, and records a Firebase Performance
+ * trace (`ai_response_time`) measuring end-to-end AI call latency.
  *
  * @param {ChatInterfaceProps} props
  * @returns {JSX.Element}
@@ -33,7 +35,11 @@ export default function ChatInterface({ selectedState }) {
 
   /**
    * Handles form submission: validates input, logs the analytics event,
-   * calls the backend, and appends the bot reply to the message list.
+   * starts a Firebase Performance trace, calls the backend, stops the trace,
+   * and appends the bot reply to the message list.
+   *
+   * Firebase Performance trace name: `ai_response_time`
+   * Custom attributes recorded: `state` (the selected Indian state code)
    *
    * @param {React.FormEvent} [event] - The optional form submit event.
    * @returns {Promise<void>}
@@ -46,12 +52,23 @@ export default function ChatInterface({ selectedState }) {
     setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
     setInput('');
     setIsLoading(true);
+
+    // Log analytics event
     logEvent(analytics, 'question_asked', { state: selectedState });
+
+    // Start Firebase Performance trace to measure AI response latency
+    const aiTrace = trace(perf, 'ai_response_time');
+    aiTrace.putAttribute('state', selectedState);
+    aiTrace.start();
 
     try {
       const response = await askAssistant(userMsg, selectedState);
+      // Stop trace on successful response — records duration automatically
+      aiTrace.stop();
       setMessages(prev => [...prev, { role: 'bot', text: response.reply }]);
     } catch (error) {
+      // Stop trace even on failure so partial data is still recorded
+      aiTrace.stop();
       setMessages(prev => [...prev, { role: 'bot', text: "Sorry, I'm having trouble right now. Please try again." }]);
     } finally {
       setIsLoading(false);

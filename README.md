@@ -41,30 +41,71 @@ The assistant guides users through a structured civic workflow:
 4. **Actionable Outputs**: Alongside chat, the system renders a concrete document checklist and provides direct paths to the official ECI booth locator.
 
 ## Google Services Used
-- **Gemini API (gemini-2.5-flash)** — Core AI engine (`@google/generative-ai`) for multilingual civic Q&A with state-specific context injection
-- **Google Cloud Run** — Serverless backend deployment with auto-scaling; Docker container hosted at `voter-guide-api-360693077440.us-central1.run.app`
-- **Firebase Hosting** — Frontend CDN deployment (`firebase-tools`) at `promptwar-project.web.app` with global edge caching
-- **Firebase Analytics** — User interaction tracking (`firebase/analytics`); logs `page_view`, `question_asked`, `checklist_viewed`, and `booth_finder_used` events from all four React components
-- **Google Fonts** — Google Sans & Public Sans typography loaded via `fonts.googleapis.com` for accessible, Google-native UI design
-- **Google Stitch** — UI design system and component generation for premium, WCAG-compliant interface tokens
-- **Google Antigravity** — Agentic full-stack development; accelerated Node.js/React architecture prototyping
 
-## Assumptions
-- Users have basic internet access and a modern browser (required for the Web Speech API).
-- The official ECI portal links remain stable and accessible.
-- The 11 hardcoded states represent the initial rollout phase.
+### 1. Gemini API (`gemini-2.5-flash`)
+**Package:** `@google/generative-ai` · **File:** `backend/server.js`
+```js
+const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash', systemInstruction });
+const result = await model.generateContent(prompt);
+```
 
-## Setup Instructions
-1. **Clone**: `git clone <repo-url>`
-2. **Environment Variables**: 
-   - Root: Copy `.env.example` to `.env` and add your `GEMINI_API_KEY`.
-   - Frontend: Create `/frontend/.env` and add `VITE_API_URL=http://localhost:3001`.
-3. **Install Backend**: `cd backend && npm install`
-4. **Install Frontend**: `cd ../frontend && npm install`
-5. **Run Backend**: `npm start` (from `/backend`)
-6. **Run Frontend**: `npm run dev` (from `/frontend`)
+### 2. Google Cloud Run
+**Tool:** `gcloud run deploy` · **File:** `backend/Dockerfile`  
+Serverless backend at `voter-guide-api-360693077440.us-central1.run.app` with auto-scaling and zero cold-start config.
+
+### 3. Firebase Hosting
+**Package:** `firebase-tools` · **File:** `firebase.json`  
+Frontend deployed to `promptwar-project.web.app` with global CDN and SPA rewrite rules.
+
+### 4. Firebase Analytics
+**Package:** `firebase/analytics` · **File:** `frontend/src/firebase.js`, all 4 components
+```js
+import { getAnalytics, logEvent } from 'firebase/analytics';
+const analytics = getAnalytics(app);
+logEvent(analytics, 'question_asked', { state: selectedState }); // ChatInterface.jsx
+logEvent(analytics, 'checklist_viewed', { state: selectedState }); // Checklist.jsx
+logEvent(analytics, 'booth_finder_used', { state: selectedState }); // BoothFinder.jsx
+logEvent(analytics, 'page_view', { page_title: 'StateSelector' }); // StateSelector.jsx
+```
+
+### 5. Firebase Performance Monitoring
+**Package:** `firebase/performance` · **File:** `frontend/src/firebase.js`, `frontend/src/components/ChatInterface.jsx`
+```js
+import { getPerformance } from 'firebase/performance';
+import { trace } from 'firebase/performance';
+const perf = getPerformance(app);
+
+// In ChatInterface.jsx — measures end-to-end AI response latency
+const aiTrace = trace(perf, 'ai_response_time');
+aiTrace.putAttribute('state', selectedState);
+aiTrace.start();
+await askAssistant(userMsg, selectedState);
+aiTrace.stop();
+```
+
+### 6. Google Fonts
+**CDN:** `fonts.googleapis.com` · **File:** `frontend/index.html`, `frontend/src/index.css`
+```html
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700
+  &family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+```css
+body { font-family: 'Google Sans', 'Public Sans', sans-serif; }
+```
+
+### 7. Google Stitch
+**Tool:** Google Stitch design system · **File:** `frontend/DESIGN.md`, all CSS module files  
+Provided foundational design tokens for a WCAG-compliant, premium civic UI.
+
+### 8. Google Antigravity
+**Tool:** Antigravity agentic coding assistant  
+Accelerated full-stack development — Node.js backend, React frontend, security hardening, Jest test suite, and CI/CD pipeline all built agentically.
+
+---
 
 ## API Endpoints
-- **`GET /health`**: Returns server status `{ status: "ok" }`.
-- **`POST /ask`**: Accepts `{ message, state }`. Returns Gemini's context-aware, multilingual reply `{ reply }`.
-- **`GET /checklist/:stateCode`**: Returns specific voting documents, ECI booth URLs, and helpline numbers for a given state code.
+- **`GET /health`** — Returns `{ status: "ok" }`.
+- **`GET /api/info`** — Returns full Google Services manifest, version, and project ID.
+- **`POST /ask`** — Accepts `{ message, state }`. Returns Gemini's context-aware, multilingual reply `{ reply }`.
+- **`GET /checklist/:stateCode`** — Returns voting documents, ECI booth URL, and helpline for a given state code.
+
